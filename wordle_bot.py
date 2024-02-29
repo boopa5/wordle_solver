@@ -59,7 +59,6 @@ class WordleSolver:
     # Updates the expected information of every word in the current possible_guess list
     def update_expected_informations(self) -> None:
         for word in self.possible_guesses:
-            if word[3] == 'j': print(word)
             self.expected_infos[word] = self.expected_information(word)
 
 

@@ -1,4 +1,5 @@
 from wordle_bot import *
+import time 
 
 # Class that assigns maps colors to numbers 
 class Color:
@@ -39,13 +40,12 @@ def convert_pattern(pattern: list[int], guess: str) -> str:
     return("".join(letters_w_colors))
 
 # Actually allows the user to play the game 
-def play_wordle_user(word_bank: list[str], target: str, num_of_guesses: int):
+def play_wordle_user(word_bank: list[str], target: str, num_of_guesses: int) -> int:
 
     # List of strings that contain the guesses of the user 
     patterns = []
     
     word_bank_set = set(word_bank)
-    print(word_bank_set)
 
     # Initial state of game
     guess_number = 0
@@ -78,6 +78,8 @@ def play_wordle_user(word_bank: list[str], target: str, num_of_guesses: int):
         if pattern == [2]*len(target):
             won = True
 
+        guess_number += 1
+
     # Handles wins and losses 
     print()
     if won:
@@ -85,7 +87,9 @@ def play_wordle_user(word_bank: list[str], target: str, num_of_guesses: int):
     else:
         print(f"Ahh, you didn't get the word, it was {target}")
 
-def play_wordle_computer(word_bank: list[str], target: str, num_of_guesses: int):
+    return guess_number
+
+def play_wordle_computer(word_bank: list[str], target: str, num_of_guesses: int) -> int:
 
     wb = WordleSolver(word_bank, target, num_of_guesses)
     
@@ -123,6 +127,8 @@ def play_wordle_computer(word_bank: list[str], target: str, num_of_guesses: int)
             wb.filter_possible_guesses()
             wb.update_best_word()
 
+        guess_number += 1
+
 
     # Handles wins and losses 
     print()
@@ -130,3 +136,8 @@ def play_wordle_computer(word_bank: list[str], target: str, num_of_guesses: int)
         print("Congratulations, you guessed the word correctly")
     else:
         print(f"Ahh, you didn't get the word, it was {target}")
+
+
+    return guess_number
+
+    
