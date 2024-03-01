@@ -9,12 +9,12 @@ elements = [0, 1, 2]
 # Generate all possible patterns for a 5-digit list
 patterns = list(product(elements, repeat=5))
 
-lookup = open("lookup.txt", "a")
+lookup = open("./text_files/lookup.txt", "w")
 
 from wordle import *
 from wordle_logic import *
 
-with open("word_list.txt") as f:
+with open("/text_files/word_list.txt") as f:
     word_list = [line.rstrip() for line in f]
 
 wb = WordleSolver(word_list, 6)

@@ -8,7 +8,7 @@ import random
 
 
 def check_lookup_table(pattern: list[int]) -> str:
-    with open("lookup.txt", 'r') as f:
+    with open("./text_files/lookup.txt", 'r') as f:
         for line in f:
             if str(pattern) in line:
                 return line[17:]
