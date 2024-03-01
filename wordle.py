@@ -140,4 +140,3 @@ def play_wordle_computer(word_bank: list[str], target: str, num_of_guesses: int)
 
     return guess_number
 
-    
