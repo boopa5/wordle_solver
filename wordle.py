@@ -5,27 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import random 
 
-# Class that assigns maps colors to numbers 
-class Color:
-    GRAY = 0
-    YELLOW = 1
-    GREEN = 2
 
-# Determines the resultant pattern based on the target and guess 
-def determine_pattern(target: str, guess: str) -> list[int]:
-    pattern = []
-
-    for i in range(len(target)):
-        if guess[i] == target[i]:
-            pattern.append(Color.GREEN)
-
-        elif guess[i] != target[i] and guess[i] in target:
-            pattern.append(Color.YELLOW)
-
-        else:
-            pattern.append(Color.GRAY)
-
-    return pattern 
 
 def check_lookup_table(pattern: list[int]) -> str:
     with open("lookup.txt", 'r') as f:
@@ -35,7 +15,6 @@ def check_lookup_table(pattern: list[int]) -> str:
 
 
 def convert_pattern(pattern: list[int], guess: str) -> str:
-    print(pattern)
     letters_w_colors = ["\u001b[30m"]
     for i in range(len(pattern)):
         if pattern[i] == 0:
