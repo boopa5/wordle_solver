@@ -27,6 +27,12 @@ def determine_pattern(target: str, guess: str) -> list[int]:
 
     return pattern 
 
+def check_lookup_table(pattern: list[int]) -> str:
+    with open("lookup.txt", 'r') as f:
+        for line in f:
+            if str(pattern) in line:
+                return line[17:]
+
 
 def convert_pattern(pattern: list[int], guess: str) -> str:
     print(pattern)
@@ -127,7 +133,7 @@ def play_wordle_computer(word_bank: list[str], num_of_guesses: int) -> int:
 
         input_field.send_keys(guess)
         input_field.send_keys(Keys.ENTER)
-        time.sleep(5)
+        time.sleep(4)
 
         tiles = driver.find_elements(By.CLASS_NAME, "Tile-module_tile__UWEHN")
         tiles_of_interest = tiles[5*guess_number : 5*(guess_number+1)]
@@ -147,10 +153,18 @@ def play_wordle_computer(word_bank: list[str], num_of_guesses: int) -> int:
 
         # Otherwise, update state of game
         else:
-            wb.filter_possible_targets(pattern, guess)
-            wb.update_expected_informations()
-            wb.filter_possible_guesses()
-            wb.update_best_word()
+
+            # Checks lookup table 
+            if guess_number == 0:
+                wb.filter_possible_targets(pattern, guess)
+                wb.best_guess = check_lookup_table(pattern)
+
+            # Calculates best word dynamically  
+            else:
+                wb.filter_possible_targets(pattern, guess)
+                wb.update_expected_informations()
+                wb.filter_possible_guesses()
+                wb.update_best_word()
 
         guess_number += 1
 

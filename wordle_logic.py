@@ -20,7 +20,7 @@ class WordleSolver:
 
         # Variables for "optimal" play 
         self.expected_infos = {}
-        self.best_guess = "crane"
+        self.best_guess = "salet"
 
 
     
