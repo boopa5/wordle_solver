@@ -7,15 +7,12 @@ class Color:
     GREEN = 2
 
 class WordleSolver:
-    def __init__(self, wb: list[str], t: str, ng: int) -> None:
+    def __init__(self, wb: list[str], ng: int) -> None:
 
         # Lists that determine the state of the game 
         self.word_bank = wb
         self.possible_guesses = wb
         self.possible_targets = wb
-
-        # Actual word that the computer is trying to guess 
-        self.target = t
 
         # Variables for specific type of Wordle game 
         self.num_of_guesses = ng
@@ -121,13 +118,26 @@ class WordleSolver:
 # this, current solution just writes determine_pattern in both modules 
 def determine_pattern(target: str, guess: str) -> list[int]:
     pattern = []
+    max_yellows = {}
+
+    for i in range(len(target)):
+        if target[i] not in max_yellows: 
+            max_yellows[target[i]] = 0
+
+        if target[i] != guess[i]: 
+            max_yellows[target[i]] += 1
 
     for i in range(len(target)):
         if guess[i] == target[i]:
             pattern.append(Color.GREEN)
 
         elif guess[i] != target[i] and guess[i] in target:
-            pattern.append(Color.YELLOW)
+            if max_yellows[guess[i]] > 0: 
+                pattern.append(Color.YELLOW)
+                max_yellows[guess[i]] -= 1
+
+            else:
+                pattern.append(Color.GRAY)
 
         else:
             pattern.append(Color.GRAY)
