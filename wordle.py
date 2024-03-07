@@ -6,28 +6,6 @@ from selenium.webdriver.common.by import By
 import random 
 
 
-
-def check_lookup_table(pattern: list[int]) -> str:
-    with open("./text_files/lookup.txt", 'r') as f:
-        for line in f:
-            if str(pattern) in line:
-                return line[17:]
-
-
-def convert_pattern(pattern: list[int], guess: str) -> str:
-    letters_w_colors = ["\u001b[30m"]
-    for i in range(len(pattern)):
-        if pattern[i] == 0:
-            letters_w_colors.append(f"\u001b[47m {guess[i]} ")
-        elif pattern[i] == 1:
-            letters_w_colors.append(f"\u001b[43m {guess[i]} ")
-        else:
-            letters_w_colors.append(f"\u001b[42m {guess[i]} ")
-
-    letters_w_colors.append("\u001b[0m")
-
-    return("".join(letters_w_colors))
-
 # Actually allows the user to play the game 
 def play_wordle_user(word_bank: list[str], num_of_guesses: int) -> int:
 
@@ -157,5 +135,5 @@ def play_wordle_computer(word_bank: list[str], num_of_guesses: int) -> int:
 
     driver.quit()
 
-    return guess_number
+    return guess
 
