@@ -1,4 +1,4 @@
-CXX_FLAGS = -std=c++11 -O3 -g
+CXX_FLAGS = -std=c++11 -g
 
 all: main
 
