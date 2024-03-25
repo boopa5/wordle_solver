@@ -10,8 +10,23 @@
 #include <limits> 
 #include <unordered_set>
 
+class Counter{
+    private:
+        int one;
+        int two;
+        int three;
+
+    public:
+        Counter();
+        void increment_one();
+        void increment_two();
+        void increment_three();
+        void print();
+};
+
 
 std::map<std::set<std::string>, float> get_transition_information (const std::set<std::string>& state, const std::string& action);
-float v_t(int t, const std::set<std::string>& state, std::map<std::set<std::string>, float>& v_memory, const std::set<std::string>& action_space);
+float v_t(int t, const std::set<std::string>& state, std::map<std::set<std::string>, float>& v_memory, const std::set<std::string>& action_space, Counter& count);
+
 
 #endif // ALGORITHMS_H

@@ -1,6 +1,11 @@
 #include "algorithms.h"
 #include "helpers.h"
 
+Counter::Counter() : one(0), two(0), three(0) {}
+void Counter::increment_one() {one++;}
+void Counter::increment_two() {two++;}
+void Counter::increment_three() {three++;}
+void Counter::print() {std::cout << "One: " << one << " Two: " << two << " Three: " << three << std::endl;}
 
 std::map<std::set<std::string>, float> get_transition_information (const std::set<std::string>& state, const std::string& action){
 
@@ -21,9 +26,21 @@ std::map<std::set<std::string>, float> get_transition_information (const std::se
     return transition_info;
 }
 
-float v_t(int t, const std::set<std::string>& state, std::map<std::set<std::string>, float>& v_memory, const std::set<std::string>& action_space){
+float v_t(int t, const std::set<std::string>& state, std::map<std::set<std::string>, float>& v_memory, const std::set<std::string>& action_space, Counter& count){
 
     int state_size = state.size();
+
+    if (t == 3){
+        count.increment_three();
+    }
+    else if (t == 2){
+        count.increment_two();
+    }
+    else if (t == 1){
+        count.increment_one();
+        count.print();
+    }
+
 
     if (t == 6 || (t == 5 && state_size > 1)) {return std::numeric_limits<float>::infinity();}
     else if (t == 5) {return 1;}
@@ -40,7 +57,7 @@ float v_t(int t, const std::set<std::string>& state, std::map<std::set<std::stri
         for (const auto& state : next_states){
                 if (state.first.size() == 1 && set_includes_string(state.first, "salet")){continue;}
                 else{
-                    temp += state.second*v_t(t+1, state.first, v_memory, action_space);
+                    temp += state.second*v_t(t+1, state.first, v_memory, action_space, count);
                 }
         }
 
@@ -68,7 +85,7 @@ float v_t(int t, const std::set<std::string>& state, std::map<std::set<std::stri
             for (const auto& state : next_states){
                 if (state.first.size() == 1 && set_includes_string(state.first, action)){continue;}
                 else{
-                    temp += state.second*v_t(t+1, state.first, v_memory, action_space);
+                    temp += state.second*v_t(t+1, state.first, v_memory, action_space, count);
                 }
             }
 

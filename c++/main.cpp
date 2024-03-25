@@ -6,8 +6,9 @@ int main(){
     std::set<std::string> action_space = read_text_file("../text_files/word_list.txt");
     
     std::map<std::set<std::string>, float> mem;
+    Counter count;
 
-    float expected_value = v_t(0, answer_list, mem, action_space);
+    float expected_value = v_t(0, answer_list, mem, action_space, count);
     std::cout << expected_value;
 
 }
