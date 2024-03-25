@@ -77,8 +77,6 @@ float v_t(int t, const std::set<std::string>& state, std::map<std::set<std::stri
 
     }
 
-    std::cout << t <<"\n";
-    std::cout << v_memory.size() << "\n";
 
     v_memory[state] = state_value;
     return state_value;
