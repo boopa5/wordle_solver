@@ -7,8 +7,10 @@ int main(){
     
     std::map<std::set<std::string>, float> mem;
     Counter count;
+    std::set<std::string> useles_words;
 
-    float expected_value = v_t(0, answer_list, mem, action_space, count);
+    float expected_value = v_t(0, answer_list, mem, action_space, useles_words, count);
     std::cout << expected_value;
+
 
 }
